@@ -1,3 +1,5 @@
+let started = false; // Variable de control
+
 let pipes = [];
 let bird;
 let playing = false;
@@ -76,6 +78,8 @@ function setup() {
 }
 
 function draw() {
+  if (!started) return; // No ejecuta draw() hasta que el usuario haga clic
+  
   if (millis() - millisANT2 >= TiempoUpdate && Tiempo > 1687.5) {
     millisANT2 = millis();
     Tiempo = Tiempo * 0.75;
@@ -230,8 +234,10 @@ function drawLine() {
 }
 
 function mousePressed() {
-  let fs = fullscreen();
-  fullscreen(!fs);
+  if (!started) {
+    started = true; // Cambia el estado a iniciado
+    console.log("¡El usuario hizo clic! Iniciando...");
+  }
 }
 
 class Pipe {
